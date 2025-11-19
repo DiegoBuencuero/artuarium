@@ -24,15 +24,14 @@
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin> {% endcomment %}
   {% comment %} <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet"> {% endcomment %}
 
-  <!-- Vendor CSS Files -->
-  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %} " rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
   <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
   <link href="{% static 'assets/vendor/aos/aos.css" rel="stylesheet' %}">
   <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
   <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
 
-  <!-- Main CSS File -->
   <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
+
 
 </head>
   {% block head %}
@@ -90,10 +89,70 @@
 .header-right .social-links a:hover {
   opacity: 0.8;
 }
+#artuarium-loader {
+  position: fixed;
+  inset: 0;
+  background: #23483B; /* verde corporativo */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 99999;
+  transition: opacity 1.2s ease-out;
+}
 
+#artuarium-loader.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#artuarium-loader .loader-content {
+  text-align: center;
+  color: #ffffff;
+  animation: fadein 1.5s ease forwards;
+}
+
+#artuarium-loader img {
+  width: 220px;
+  margin-bottom: 20px;
+}
+
+#artuarium-loader h1 {
+  font-size: 48px;
+  letter-spacing: 4px;
+  margin: 0;
+}
+
+#artuarium-loader p {
+  margin-top: 10px;
+  font-size: 16px;
+  letter-spacing: 2px;
+  opacity: 0.75;
+}
+
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.loader-content img {
+  width: 360px !important;   /* AUMENTÁ ESTE VALOR */
+  max-width: 90vw !important;
+}
+.loader-content p {
+  margin-top: 35px !important;
+  font-size: 1.4rem !important;
+  
+}
 </style>
   
 <body class="portfolio-details-page">
+  <div id="artuarium-loader">
+    <div class="loader-content">
+        <img src="{% static 'assets/img/logo_completo.svg' %}" alt="Artuarium Logo">
+        <p>Onde a história respira e a viagem se torna memória</p>
+    </div>
+</div>
   <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
 
@@ -262,7 +321,13 @@
 
   <!-- Main JS File -->
   <script src="{% static 'assets/js/main.js' %}"></script>
-
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        setTimeout(() => {
+            document.getElementById("artuarium-loader").classList.add("fade-out");
+        }, 3200);
+    });
+</script>
 </body>
 
 </html>

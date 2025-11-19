@@ -869,9 +869,17 @@ section,
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #080C0A !important;
 }
-
-.hero img {
+#hero::before,
+#hero::after,
+.hero::before,
+.hero::after {
+  content: none !important;
+  background: none !important;
+  opacity: 0 !important;
+}
+/* .hero img {
   position: absolute;
   inset: 0;
   display: block;
@@ -879,15 +887,15 @@ section,
   height: 100%;
   object-fit: cover;
   z-index: 1;
-}
+} */
 
-.hero:before {
+/* .hero:before {
   content: "";
   background: color-mix(in srgb, var(--background-color), transparent 70%);
   position: absolute;
   inset: 0;
   z-index: 2;
-}
+} */
 
 .hero .container {
   position: relative;

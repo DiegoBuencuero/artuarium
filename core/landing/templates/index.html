@@ -4,7 +4,7 @@
 {% block content %}
 <style>
 
-.hero-video {
+{% comment %} .hero-video {
     position: absolute;
     top: 0;
     left: 0;
@@ -12,9 +12,9 @@
     height: 100%;
     object-fit: cover;
     z-index: 1;
-}
+} {% endcomment %}
 
-.hero-content {
+{% comment %} .hero-content {
     position: relative;
     z-index: 2;
     color: #fff;
@@ -30,8 +30,43 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(98, 147, 123, 0);
+
     z-index: 2;
+} {% endcomment %}
+.smooth-fade {
+  opacity: 0;
+  transform: translateY(12px); /* micro deslizamiento premium */
+  transition: opacity 1.6s ease, transform 1.6s ease;
+}
+
+.smooth-fade.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+#hero {
+  position: relative;
+  height: 90vh; /* altura visual elegante */
+  display: flex;
+  align-items: center; /* centra vertical */
+}
+
+#hero .container {
+  position: relative;
+  z-index: 3;
+  text-align: left; /* asegura alineación izquierda */
+  margin-left: 8vw; /* opción: mueve el bloque a una posición ideal */
+}
+
+
+.hero-title {
+  color: #F4EFE4 !important;
+  font-weight: 500;
+}
+.hero-title-h1 {
+  font-weight: 600;      /* más presencia, sin ir al 700 */
+  letter-spacing: 0.3px; /* micro ajuste premium */
+  opacity: 0.98;  
+  color: #F4EFE4 !important;       /* apenas más visible */
 }
 .smooth-fade {
   opacity: 0;
@@ -59,14 +94,20 @@
 }
 .hero-title-h1 {
   letter-spacing: 0.5px;
-  font-size: 3.7rem;
-  font-weight:600;
+  font-size: 2.7rem;        /* antes 3rem – ahora más premium */
+  font-weight: 500;         /* antes 600 – suaviza */
+  line-height: 1.25;
 }
+
 .hero-title {
-  letter-spacing: 0.5px;
-
+  font-size: 1.3rem;        /* antes muy grande – ahora editorial */
+  font-weight: 300;
+  opacity: 0.9;
 }
-
+{% comment %} #hero .container {
+  padding-top: 90px;        /* crea aire por encima */
+  padding-bottom: 120px;    /* y por debajo */
+} {% endcomment %}
 
 .hero-buttons:hover {
   background-color: #F4EFE4;
@@ -446,37 +487,67 @@
     z-index: 0;
 }
 
-/* Que el contenido quede por encima */
 .footer-artuarium .footer-top,
 .footer-artuarium .copyright {
     position: relative;
     z-index: 2;
 }
+/* ===== HERO PERSONALIZADO SIN MÁSCARA ===== */
+.hero-custom {
+  width: 100%;
+  min-height: 80vh;
+  background-color: #080C0A !important;
+  position: relative;
+  padding: 140px 0 120px 0;
+  color: #fff;
+}
+
+/* Desactiva cualquier overlay del template */
+.hero-custom::before,
+.hero-custom::after {
+  content: none !important;
+  background: none !important;
+  opacity: 0 !important;
+}
+
+/* Si NO querés imagen, escondela */
+.hero-custom .hero-image {
+  display: none !important;
+}
+
+/* Asegura que nada del template pise el color */
+section.hero-custom {
+  background-color: #080C0A !important;
+}
 
 </style>
   <main class="main">
-    <section id="hero" class="hero section dark-background">
-      <video autoplay muted loop playsinline class="hero-video" id="hero-video">
-        <source src="{% static 'assets/video/video_home.webm' %}" type="video/webm">
-        <source src="{% static 'assets/video/porto-tram.mp4' %}" type="video/mp4">
-      </video>
+    <section id="hero" class="hero-custom">
+      <div class="hero-image" 
+           style="background-image: url('{% static "assets/img/hero_porto.jpg" %}');">
+      </div>
+
       <div class="container">
         <div class="row justify-content-left text-left" data-aos="fade-up" data-aos-delay="100">
-          <div class="col-xl-9 col-lg-9">
+          <div class="col-xl-7 col-lg-7">
+
             <h1 id="title-hero" class="hero-title-h1 smooth-fade">
-              {% translate "Não viajamos para marcar destinos <br> viajamos para marcar a alma." %}
-            </h1>          
+              {% translate "Seja bem-vindo a uma história que começa antes de você chegar." %}
+            </h1>
+
             <h4 id="subtitle-hero" class="hero-title smooth-fade mt-4">
-              {% translate "Um ponto de encontro entre conhecimento e emoção." %}
+              {% translate "Um encontro entre história, beleza e emoção." %}
             </h4>
+
             <div class="d-flex gap-3 mt-5">
               <a class="hero-buttons" href="#about">{% translate "Agendar" %}</a>
               <a class="hero-btn" href="#about">{% translate "Saiba Mais" %}</a>
             </div>
+
           </div>
         </div>
       </div>
-    </section>    
+</section>    
     <section id="about" class="section-proposito">
       <div class="container">
         <div class="row justify-content-between align-items-stretch d-flex">    
@@ -560,7 +631,7 @@
       <div class="cta-container text-center">
     
           <h2 class="cta-title">
-            Onde outros veem ruínas, nós vemos ecos.
+            Permita-se uma jornada com olhos de quem vê além das fachadas.
           </h2>
     
           <h3 class="cta-sub">
