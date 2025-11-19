@@ -130,10 +130,11 @@ LOCALE_PATHS = (
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    BASE_DIR / 'core' / 'static',   # donde realmente están tus assets
+    BASE_DIR / 'core' / 'static',
 ]
 
-STATIC_ROOT = BASE_DIR / 'staticfiles'  # acá Django va a copiar TODO
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 
 
 # Default primary key field type
