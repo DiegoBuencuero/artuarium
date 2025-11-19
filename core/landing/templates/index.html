@@ -1,0 +1,897 @@
+{% extends "base.html"%}
+{% load static %}
+{% load i18n %}
+{% block content %}
+<style>
+
+.hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    color: #fff;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(98, 147, 123, 0);
+    z-index: 2;
+}
+.smooth-fade {
+  opacity: 0;
+  transition: opacity 3.5s ease;
+}
+.smooth-fade.show {
+  opacity: 1;
+}
+
+.btn-getstarted{
+  z-index: 5 !important;
+}
+
+.hero-buttons {
+  display: inline-block;
+  padding: 8px 24px;
+  border-radius: 6px;
+  border: 1px solid #F4EFE4;    /* marfil / blanco suave */
+  color: #F4EFE4;
+  font-size: 0.8rem;
+  font-weight: 400;
+  text-decoration: none;
+  transition: 0.3s ease;
+  background: transparent;
+}
+.hero-title-h1 {
+  letter-spacing: 0.5px;
+  font-size: 3.7rem;
+  font-weight:600;
+}
+.hero-title {
+  letter-spacing: 0.5px;
+
+}
+
+
+.hero-buttons:hover {
+  background-color: #F4EFE4;
+  color: #1B3A34;            
+}
+
+.hero-btn:hover {
+  background-color: #F4EFE4;
+  color: #1B3A34;            
+}
+
+.hero-btn {
+  display: inline-block;
+  padding: 8px 24px;
+  border-radius: 6px;
+  border: 1px solid #344E41;    /* marfil / blanco suave */
+  color: #F4EFE4;
+  font-size: 0.8rem;
+  font-weight: 400;
+  text-decoration: none;
+  transition: 0.3s ease;
+  background-color: #344E41;
+}
+
+.section-proposito {
+  padding: 90px 0 110px;
+  background-color: #FBF7F2;  /* tom bem suave, alinhado ao manual */
+}
+
+.section-proposito .proposito-title {
+  font-family: var(--heading-font);
+  font-size: clamp(2.5rem, 3.2vw, 2.9rem);
+  line-height: 1.25;
+  margin-bottom: 1.5rem;
+  color: #1B3A34;
+  font-weight: 600; 
+}
+
+.section-proposito .proposito-lead {
+  font-family: var(--default-font);
+  font-size: 1.15rem;
+  color: #5B5B5B;
+  margin-bottom: 1.5rem;
+}
+
+.section-proposito .proposito-list li {
+  position: relative;
+  padding-left: 28px;
+  margin-bottom: 0.7rem;
+  font-family: var(--default-font);
+  color: #3C3C3C;
+}
+
+.pilares {
+  padding: 80px 0;
+  background: #FDFBF7;
+}
+
+.pilares-img {
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+
+}
+
+.pilar-item {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.pilar-item h3 {
+  font-family: 'PlayfairDisplaySC-Bold', serif;
+  color: #1B3A34;
+  margin-bottom: 8px;
+}
+
+.pilar-item p {
+  color: #4a4a4a;
+}
+
+.icon-box {
+  width: 64px;
+  height: 64px;
+  background: #F4EFE4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.icon-box i {
+  font-size: 28px;
+  color: #1B3A34;
+}
+
+.service-item .icon-box {
+  margin-left: auto;
+  margin-right: auto;
+}
+.proposito-list li {
+  font-size: 1.08rem;
+  margin-bottom: 0.85rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: #2e2e2e;
+  letter-spacing: 0.1px;
+}
+
+.section-proposito {
+  padding: 110px 0 130px;
+  background-color: #FBF7F2; /* Marfim suave */
+}
+
+/* Título */
+.proposito-title {
+  font-family: var(--heading-font);
+  font-size: clamp(2.5rem, 3.4vw, 3rem);
+  line-height: 1.22;
+  color: #1B3A34; /* Verde profundo Artuarium */
+  margin-bottom: 1.4rem;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+}
+
+/* Lead */
+.proposito-lead {
+  font-family: var(--default-font);
+  font-size: 1.15rem;
+  color: #5B5B5B; /* Pedra do Douro */
+  margin-bottom: 1.7rem;
+  max-width: 95%;
+}
+
+/* Lista */
+.proposito-list li {
+  font-size: 1.08rem;
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: #2e2e2e;
+  letter-spacing: 0.1px;
+}
+
+.proposito-list .ornamento {
+  font-size: 1.3rem;
+  color: #c7a66a; /* Dourado Antigo */
+  line-height: 1;
+  margin-top: 4px;    
+  opacity: 0.95;
+  font-weight: 300;
+}
+
+/* Parágrafo final */
+.proposito-text {
+  margin-top: 1.5rem;
+  font-size: 1.15rem;
+  color: #444;
+  line-height: 1.65;
+}
+
+.proposito-img {
+  width: 100%;
+  height: 100%;       /* SIEMPRE iguala la altura de la columna */
+  object-fit: cover;  /* recorta elegante */
+  border-radius: 14px;
+  box-shadow: 0 7px 20px rgba(0,0,0,0.10);
+  border: 1px solid rgba(199, 166, 106, 0.25);
+}
+
+.proposito-img:hover {
+  transform: translateY(0px);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.18);
+}
+.proposito-title .nivel {
+  font-weight: 700;           /* más presencia */
+  color: #0F2622;             /* verde aún más profundo, premium */
+  letter-spacing: -0.2px;
+  font-family: var(--heading-font);
+}
+.proposito-lead .enfase {
+  font-weight: 600;
+  color: #1B3A34;
+}
+.final-frase {
+  font-weight: 600;
+  color: #0F2622;
+}
+
+.narrativas-title {
+  font-family: var(--heading-font);
+  font-size: clamp(2.2rem, 3vw, 2.8rem);
+  font-weight: 600;
+  color: #1B3A34;
+  margin-bottom: 0.7rem;
+}
+
+.narrativas-subtitle {
+  color: #5B5B5B;
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+/* Seção Narrativas */
+.section-narrativas {
+  padding: 100px 0 120px;
+  background-color: #FBF7F2;
+}
+
+/* Título */
+.narrativas-title {
+  font-family: var(--heading-font);
+  font-size: clamp(2.4rem, 3vw, 2.8rem);
+  font-weight: 600;
+  color: #1B3A34;
+  margin-bottom: 0.8rem;
+  line-height: 1.25;
+  letter-spacing: 0.2px;
+}
+
+/* Subtítulo */
+.narrativas-subtitle {
+  color: #5B5B5B;
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0;              /* alinea à esquerda */
+  text-align: left;       /* garante alinhamento */
+  line-height: 1.55;
+  padding-left: 2px;      /* microajuste editorial */
+}
+
+/* Cards */
+.narrativa-card {
+  background: #fff;
+  padding: 40px 30px;
+  border-radius: 14px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+  text-align: center;
+  transition: 0.35s ease;
+  height: 100%;
+}
+
+.narrativa-card:hover {
+  box-shadow: 0 10px 24px rgba(0,0,0,0.10);
+  transform: translateY(-6px);
+}
+
+/* Icono */
+.icon-box {
+  width: 68px;
+  height: 68px;
+  background: #F4EFE4;
+  margin: 0 auto 18px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-box i {
+  font-size: 26px;
+  color: #1B3A34;
+}
+
+/* Títulos de cards */
+.narrativa-card h3 {
+  font-family: var(--heading-font);
+  color: #1B3A34;
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+/* Descripción de cards */
+.narrativa-card p {
+  color: #4A4A4A;
+  font-size: 1rem;
+  line-height: 1.55;
+}.divider-artuarium {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+
+.divider-line {
+  flex: 1;
+  height: 1px;
+  background-color: rgba(27, 58, 52, 0.55); /* Verde Artuarium suave */
+}
+
+.divider-icon {
+  width: 48px;
+  opacity: 0.9;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.05));
+}
+.divider-artuarium {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  background-color: #FBF7F2;   /* ← Fondo marfil Artuarium */
+
+}
+.artuarium-cta {
+  background: #AFC6BB; /* Verde médio premium */
+  padding: 140px 0;
+  text-align: center;
+  position: relative;
+}
+.cta-artuarium {
+  background: linear-gradient(to bottom, #B9CFC7 0%, #AEC5BC 80%);
+  padding: 120px 0;
+  position: relative;
+}
+
+/* Pattern grande ultra suave */
+.cta-artuarium::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url('{% static "assets/img/Pattern_Arturium.png" %}');
+  background-size: cover;
+  opacity: 0.03;
+  pointer-events: none;
+}
+
+/* Título */
+.cta-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 38px;
+  font-weight: 500;
+  color: #0F2E2D;
+  margin-bottom: 10px;
+}
+
+/* Subtítulo */
+.cta-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 300;
+  color: #0F2E2D;
+  margin-bottom: 35px;
+}
+
+/* Selo Artuarium */
+.cta-selo img {
+  width: 48px;
+  opacity: 0.45;
+  margin-bottom: 35px;
+}
+
+/* Botón */
+.cta-btn {
+  border: 1px solid #0F2E2D;
+  padding: 12px 38px;
+  font-family: 'Cormorant Garamond', serif;
+  color: #0F2E2D;
+  text-decoration: none;
+  font-size: 18px;
+  transition: 0.3s ease;
+}
+
+.cta-btn:hover {
+  background-color: rgba(15, 46, 45, 0.08);
+}
+/* Patrón grande */
+.footer-artuarium::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("{% static 'assets/img/mapa.svg' %}");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 1800px;  /* Ajustá 1600–2400 según gusto */
+    opacity: 0.1;  /* Elegancia premium exacta */
+    z-index: 0;
+}
+
+/* Que el contenido quede por encima */
+.footer-artuarium .footer-top,
+.footer-artuarium .copyright {
+    position: relative;
+    z-index: 2;
+}
+
+</style>
+  <main class="main">
+    <section id="hero" class="hero section dark-background">
+      <video autoplay muted loop playsinline class="hero-video" id="hero-video">
+        <source src="{% static 'assets/video/video_home.webm' %}" type="video/webm">
+        <source src="{% static 'assets/video/porto-tram.mp4' %}" type="video/mp4">
+      </video>
+      <div class="container">
+        <div class="row justify-content-left text-left" data-aos="fade-up" data-aos-delay="100">
+          <div class="col-xl-9 col-lg-9">
+            <h1 id="title-hero" class="hero-title-h1 smooth-fade">
+              {% translate "Não viajamos para marcar destinos <br> viajamos para marcar a alma." %}
+            </h1>          
+            <h4 id="subtitle-hero" class="hero-title smooth-fade mt-4">
+              {% translate "Um ponto de encontro entre conhecimento e emoção." %}
+            </h4>
+            <div class="d-flex gap-3 mt-5">
+              <a class="hero-buttons" href="#about">{% translate "Agendar" %}</a>
+              <a class="hero-btn" href="#about">{% translate "Saiba Mais" %}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>    
+    <section id="about" class="section-proposito">
+      <div class="container">
+        <div class="row justify-content-between align-items-stretch d-flex">    
+          <div class="col-lg-7 d-flex flex-column">    
+            <h2 class="proposito-title">
+              {% translate "Viajar não é apenas deslocar-se:" %}<br>
+              <span class="nivel">{% translate "é escutar." %}</span>
+            </h2>   
+            <p class="proposito-lead fst-italic">
+              {% translate "Na Artuarium, cada caminho carrega uma voz — um sopro do passado que encontra o presente e se transforma em" %}
+              <span class="enfase">{% translate "gesto, memória e encantamento." %}</span>
+            </p>  
+            <ul class="proposito-list list-unstyled">
+              <li><span class="ornamento">✦</span> {% translate "Guiamos jornadas que caminham no ritmo da cidade." %}</li>
+              <li><span class="ornamento">✦</span> {% translate "Que não mostram — revelam camadas invisíveis." %}</li>
+              <li><span class="ornamento">✦</span> {% translate "Que não explicam — conectam sentidos e histórias." %}</li>
+            </ul>    
+            <p class="">
+              {% translate "Aqui, o tempo desacelera. As pedras contam segredos." %}
+              <br>
+              <span class="final-frase mt-3">
+                {% translate "E você deixa de olhar — para finalmente ver." %}
+              </span>
+            </p>
+            
+          </div>    
+          <div class="col-lg-4 d-flex">
+            <img src="{% static 'assets/img/porto3.jpg' %}" class="img-fluid rounded sombra-suave proposito-img">
+          </div>    
+        </div>
+      </div>
+    </section>  
+    <div class="divider-artuarium">
+      <span class="divider-line"></span>
+      <img src="{% static 'assets/img/icono_arturium.png' %}" class="divider-icon" alt="Artuarium">
+      <span class="divider-line"></span>
+    </div>
+    <section id="services" class="services section section-narrativas">
+      <div class="container">
+        <div class="text-left mb-5">
+          <h2 class="narrativas-title">
+            Narrativas que despertam ao caminhar.
+          </h2>
+          <p class="narrativas-subtitle">
+            Cada experiência nasce de uma pergunta, de um olhar e de um encontro.<br>
+            Aqui, você escolhe qual história deseja escutar primeiro.
+          </p>
+        </div>    
+        <div class="row gy-4">    
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="narrativa-card">
+              <div class="icon-box">
+                <i class="bi bi-eye"></i>
+              </div>
+              <h3>Olhar Devagar</h3>
+              <p>Estética da contemplação. Pequenos instantes que mudam o ritmo do mundo.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="narrativa-card">
+              <div class="icon-box">
+                <i class="bi bi-journal-bookmark flex-shrink-0"></i> 
+              </div>
+              <h3>Cuidar das Histórias</h3>
+              <p>Memórias não são fatos: são heranças vivas que precisam de cuidado.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="narrativa-card">
+              <div class="icon-box">
+                <i class="bi bi-signpost-split flex-shrink-0"></i>
+              </div>
+              <h3>Caminhar com Alma</h3>
+              <p>O caminho importa tanto quanto o destino. Cada passo também narra.</p>
+            </div>
+          </div>   
+        </div>    
+      </div>
+    </section>    
+    <section class="cta-artuarium footer-artuarium">
+      <div class="cta-container text-center">
+    
+          <h2 class="cta-title">
+            Onde outros veem ruínas, nós vemos ecos.
+          </h2>
+    
+          <h3 class="cta-sub">
+            Descubra um novo jeito de viajar.
+          </h3>   
+          <a href="#contato" class="cta-btn">Agendar</a>
+      </div>
+    </section>
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+    {% comment %} <section id="testimonials" class="testimonials section dark-background">
+
+      <img src="assets/img/testimonials-bg.jpg" class="testimonials-bg" alt="">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="swiper init-swiper">
+          <script type="application/json" class="swiper-config">
+            {
+              "loop": true,
+              "speed": 600,
+              "autoplay": {
+                "delay": 5000
+              },
+              "slidesPerView": "auto",
+              "pagination": {
+                "el": ".swiper-pagination",
+                "type": "bullets",
+                "clickable": true
+              }
+            }
+          </script>
+          <div class="swiper-wrapper">
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
+                <h3>Saul Goodman</h3>
+                <h4>Ceo &amp; Founder</h4>
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <p>
+                  <i class="bi bi-quote quote-icon-left"></i>
+                  <span>Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.</span>
+                  <i class="bi bi-quote quote-icon-right"></i>
+                </p>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
+                <h3>Sara Wilsson</h3>
+                <h4>Designer</h4>
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <p>
+                  <i class="bi bi-quote quote-icon-left"></i>
+                  <span>Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.</span>
+                  <i class="bi bi-quote quote-icon-right"></i>
+                </p>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
+                <h3>Jena Karlis</h3>
+                <h4>Store Owner</h4>
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <p>
+                  <i class="bi bi-quote quote-icon-left"></i>
+                  <span>Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.</span>
+                  <i class="bi bi-quote quote-icon-right"></i>
+                </p>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
+                <h3>Matt Brandon</h3>
+                <h4>Freelancer</h4>
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <p>
+                  <i class="bi bi-quote quote-icon-left"></i>
+                  <span>Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.</span>
+                  <i class="bi bi-quote quote-icon-right"></i>
+                </p>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
+                <h3>John Larson</h3>
+                <h4>Entrepreneur</h4>
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <p>
+                  <i class="bi bi-quote quote-icon-left"></i>
+                  <span>Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.</span>
+                  <i class="bi bi-quote quote-icon-right"></i>
+                </p>
+              </div>
+            </div><!-- End testimonial item -->
+
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+
+      </div>
+
+    </section> {% endcomment %}
+
+
+    {% comment %} <section id="team" class="team section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Team</h2>
+        <p>our Team</p>
+      </div><!-- End Section Title -->
+
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+            <div class="team-member">
+              <div class="member-img">
+                <img src="assets/img/team/team-1.jpg" class="img-fluid" alt="">
+                <div class="social">
+                  <a href=""><i class="bi bi-twitter-x"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>Walter White</h4>
+                <span>Chief Executive Officer</span>
+              </div>
+            </div>
+          </div><!-- End Team Member -->
+
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+            <div class="team-member">
+              <div class="member-img">
+                <img src="assets/img/team/team-2.jpg" class="img-fluid" alt="">
+                <div class="social">
+                  <a href=""><i class="bi bi-twitter-x"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>Sarah Jhonson</h4>
+                <span>Product Manager</span>
+              </div>
+            </div>
+          </div><!-- End Team Member -->
+
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
+            <div class="team-member">
+              <div class="member-img">
+                <img src="assets/img/team/team-3.jpg" class="img-fluid" alt="">
+                <div class="social">
+                  <a href=""><i class="bi bi-twitter-x"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>William Anderson</h4>
+                <span>CTO</span>
+              </div>
+            </div>
+          </div><!-- End Team Member -->
+
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="400">
+            <div class="team-member">
+              <div class="member-img">
+                <img src="assets/img/team/team-4.jpg" class="img-fluid" alt="">
+                <div class="social">
+                  <a href=""><i class="bi bi-twitter-x"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>Amanda Jepson</h4>
+                <span>Accountant</span>
+              </div>
+            </div>
+          </div><!-- End Team Member -->
+
+        </div>
+
+      </div>
+
+    </section> {% endcomment %}
+
+{% comment %} 
+    <section id="contact" class="contact section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Contact</h2>
+        <p>Contact Us</p>
+      </div>
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="mb-4" data-aos="fade-up" data-aos-delay="200">
+          <iframe style="border:0; width: 100%; height: 270px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48389.78314118045!2d-74.006138!3d40.710059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3bda30d%3A0xb89d1fe6bc499443!2sDowntown%20Conference%20Center!5e0!3m2!1sen!2sus!4v1676961268712!5m2!1sen!2sus" frameborder="0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div><!-- End Google Maps -->
+
+        <div class="row gy-4">
+
+          <div class="col-lg-4">
+            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
+              <i class="bi bi-geo-alt flex-shrink-0"></i>
+              <div>
+                <h3>Address</h3>
+                <p>A108 Adam Street, New York, NY 535022</p>
+              </div>
+            </div><!-- End Info Item -->
+
+            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
+              <i class="bi bi-telephone flex-shrink-0"></i>
+              <div>
+                <h3>Call Us</h3>
+                <p>+1 5589 55488 55</p>
+              </div>
+            </div><!-- End Info Item -->
+
+            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="500">
+              <i class="bi bi-envelope flex-shrink-0"></i>
+              <div>
+                <h3>Email Us</h3>
+                <p>info@example.com</p>
+              </div>
+            </div><!-- End Info Item -->
+
+          </div>
+
+          <div class="col-lg-8">
+            <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+              <div class="row gy-4">
+
+                <div class="col-md-6">
+                  <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
+                </div>
+
+                <div class="col-md-6 ">
+                  <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
+                </div>
+
+                <div class="col-md-12">
+                  <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
+                </div>
+
+                <div class="col-md-12">
+                  <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
+                </div>
+
+                <div class="col-md-12 text-center">
+                  <div class="loading">Loading</div>
+                  <div class="error-message"></div>
+                  <div class="sent-message">Your message has been sent. Thank you!</div>
+
+                  <button type="submit">Send Message</button>
+                </div>
+
+              </div>
+            </form>
+          </div><!-- End Contact Form -->
+
+        </div>
+
+      </div>
+    </section> {% endcomment %}
+
+  </main>
+
+  {% endblock %}
+  {% block scrips%}
+  <script>
+    document.addEventListener("DOMContentLoaded",function(){
+      $('.nav-link').removeClass('active');
+      $('#index-navlink').addClass('active');
+     
+    });
+    
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+      const title = document.getElementById("title-hero");
+      const subtitle = document.getElementById("subtitle-hero");
+  
+      // Primero aparece la frase principal
+      setTimeout(() => {
+          title.classList.add("show");
+      }, 300);
+  
+      // Luego el subtítulo, sutil y elegante
+      setTimeout(() => {
+          subtitle.classList.add("show");
+      }, 1400); // delay sutil y perfecto
+  });
+      
+      
+    </script>
+  {% endblock %}
+  
