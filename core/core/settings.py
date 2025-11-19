@@ -127,15 +127,14 @@ LOCALE_PATHS = (
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
+
 STATICFILES_DIRS = [
-    BASE_DIR / "staticfiles",
+    BASE_DIR / 'core' / 'static',   # donde realmente están tus assets
 ]
-MEDIA_URL = 'media/'
-MEDIAFILES_DIRS = [
-    BASE_DIR / "staticfiles/media"
-] 
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # acá Django va a copiar TODO
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
