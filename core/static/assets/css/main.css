@@ -861,7 +861,7 @@ section,
 /*--------------------------------------------------------------
 # Hero Section
 --------------------------------------------------------------*/
-.hero {
+/* .hero {
   width: 100%;
   min-height: 80vh;
   position: relative;
@@ -878,7 +878,7 @@ section,
   content: none !important;
   background: none !important;
   opacity: 0 !important;
-}
+} */
 /* .hero img {
   position: absolute;
   inset: 0;
@@ -896,7 +896,7 @@ section,
   inset: 0;
   z-index: 2;
 } */
-
+/* 
 .hero .container {
   position: relative;
   z-index: 3;
@@ -918,7 +918,7 @@ section,
   margin: 10px 0 0 0;
   font-size: 24px;
   color: color-mix(in srgb, var(--default-color), transparent 30%);
-}
+} */
 
 .hero .icon-box {
   padding: 30px 20px;
