@@ -7,142 +7,188 @@
   body.portfolio-details-page {
     opacity: 1 !important;
   }
-  
-/* ===========================================
-   HERO — Texto + Imagen alineados
+  /* ===========================================
+   HERO — CONTENEDOR GENERAL
    =========================================== */
+#hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: #F8F3EC !important;
+  padding: 140px 0;         /* separación del header */
+  overflow: hidden;
+  z-index: 1;
+  min-height: 80vh;         /* altura elegante y consistente */
+  max-height: 85vh;
+}
 
-   /* HERO — contenedor general */
-   #hero {
-    position: relative;
-    min-height: 75vh;
-    display: flex;
-    align-items: center;
-    background-color: #F8F3EC !important;
-    padding: 160px 0;        /* separación del header */
-    overflow: hidden;
-    z-index: 1;
-   }
+/* Mapa de fondo */
+#hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("{% static 'assets/img/mapa.svg' %}");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.22;
+  z-index: -1;
+}
 
-   #hero .container {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding-left: 32px;
-    padding-right: 32px;
+/* ===========================================
+   OVERLAY — Degradado perfecto hasta el borde
+   =========================================== */
+#hero .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;        /* 100% real del viewport */
+  height: 100%;        /* cubre TODO el hero y un poco más */
+  pointer-events: none;
+  z-index: 5;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(245,241,237,0) 0%,
+    rgba(245,241,237,0) 55%,
+    rgba(245,241,237,0.6) 75%,
+    rgba(245,241,237,0.1) 88%,
+    rgba(245,241,237,1) 100%
+  );
+}
+
+/* ===========================================
+   CONTENEDOR
+   =========================================== */
+#hero .container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
+  position: relative;
+  z-index: 10;
+}
+
+/* ===========================================
+   FILA — Centrado vertical real
+   =========================================== */
+#hero .row-hero {
+  display: flex;
+  align-items: center;     /* centra TEXTO + IMAGEN */
+  min-height: 60vh;
+}
+
+/* ===========================================
+   COLUMNA DE TEXTO
+   =========================================== */
+.hero1-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 40px;
+}
+
+.hero1-content h1 {
+  font-size: 2.9rem;
+  font-weight: 600;
+  line-height: 1.22;
+  color: #080C0A !important;
+}
+
+.hero1-content h4 {
+  font-size: 1.4rem;
+  color: #344E41 !important;
+  opacity: 0.85;
+  margin-top: 1rem;
+}
+
+.hero1-content .d-flex {
+  margin-top: 40px;
+}
+
+/* ===========================================
+   IMAGEN — Grande, elegante, independiente
+   =========================================== */
+.hero-image {
+  width: 520px;
+  height: 330px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 7px 20px rgba(0,0,0,0.12);
+  border: 1px solid rgba(199,166,106,0.25);
+}
+
+/* Imagen más grande en pantallas grandes */
+@media (min-width: 1600px) {
+  .hero-image {
+    width: 600px;
+    height: 380px;
   }
-  
-   
-   /* MAPA de fondo */
-   #hero::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image: url("{% static 'assets/img/mapa.svg' %}");
-    background-size: cover;
-    background-position: center;
-    opacity: 0.22;
-    pointer-events: none;
-    z-index: -1;
-   }
-   
-   /* Centrado del contenido */
-   #hero .container {
-    position: relative;
-    z-index: 10;
-   }
-   
-   /* FILA: ambas columnas se sincronizan en altura */
-   .row-hero {
-    display: flex;
-    align-items: stretch !important;
-   }
-   
-   /* COLUMNA DE TEXTO */
-   .hero1-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-right: 40px;
-   }
-   
-   .hero1-content h1 {
-    font-size: 2.8rem;
-    font-weight: 600;
-    line-height: 1.22;
-    color: #080C0A !important;
-   }
-   
-   .hero1-content h4 {
-    font-size: 1.4rem;
-    color: #344E41 !important;
-    opacity: 0.85;
-    margin-top: 1rem;
-   }
-   
-   /* COLUMNA DE IMAGEN */
-   .hero-image-col {
-    display: flex;
-    align-items: stretch !important;
-    justify-content: flex-end;
-   }
-   
-   /* IMAGEN — SIEMPRE MISMA ALTURA QUE EL TEXTO */
-   .hero-image {
+}
+
+/* Tablet */
+@media (max-width: 991px) {
+  .hero-image {
     width: 100%;
-    height: auto;          
-    max-height: 100%;        
-    object-fit: cover;
-    border-radius: 8px;
-    box-shadow: 0 7px 20px rgba(0,0,0,0.12);
-    border: 1px solid rgba(199, 166, 106, 0.25);
-   }
+    height: auto;
+  }
+}
 
-   @media (min-width: 1200px) {
-    .hero-image {
-      height: 480px !important;
-      width: auto !important;
-      object-fit: cover;
-    }
+/* Mobile */
+@media (max-width: 768px) {
+  #hero .row-hero {
+    flex-direction: column;
+    text-align: center;
   }
 
-   /* BOTÓN 1 — BORDE */
-   .hero1-buttons {
-     padding: 10px 26px;
-     border-radius: 6px;
-     border: 1px solid #1B3A34;
-     background: transparent;
-     color: #1B3A34;
-     font-size: 0.85rem;
-     transition: 0.3s ease;
-   }
-   
-   .hero1-buttons:hover {
-     background-color: #1B3A34;
-     color: #FBF7F2;
-   }
-   
-   /* BOTÓN 2 — PRIMARIO */
-   .hero1-btn {
-     padding: 10px 26px;
-     border-radius: 6px;
-     background-color: #344E41;
-     color: #FBF7F2;
-     border: 1px solid #344E41;
-     font-size: 0.85rem;
-     transition: 0.3s ease;
-   }
-   
-   .hero1-btn:hover {
-     background-color: #1B3A34;
-     border-color: #1B3A34;
-   }
+  .hero1-content {
+    padding-right: 0;
+  }
+
+  .hero-image {
+    margin-top: 40px;
+    width: 100%;
+  }
+}
+
+/* ===========================================
+   BOTONES
+   =========================================== */
+.hero1-buttons {
+  padding: 10px 26px;
+  border-radius: 6px;
+  border: 1px solid #1B3A34;
+  background: transparent;
+  color: #1B3A34;
+  font-size: 0.85rem;
+  transition: 0.3s ease;
+}
+
+.hero1-buttons:hover {
+  background-color: #1B3A34;
+  color: #FBF7F2;
+}
+
+.hero1-btn {
+  padding: 10px 26px;
+  border-radius: 6px;
+  background-color: #344E41;
+  color: #FBF7F2;
+  border: 1px solid #344E41;
+  font-size: 0.85rem;
+  transition: 0.3s ease;
+}
+
+.hero1-btn:hover {
+  background-color: #1B3A34;
+  border-color: #1B3A34;
+}
+
 
 /* ============================================================
    SECCIÓN PROPÓSITO
    ============================================================ */
 .section-proposito {
   padding: 110px 0 130px;
-  background-color: #FBF7F2;
+  background-color: #F5F1ED;
 }
 
 .proposito-title {
@@ -197,7 +243,7 @@
    SECCIÓN NARRATIVAS
    ============================================================ */
 .section-narrativas {
-  background: #FBF7F2;
+  background: #F5F1ED;
   padding: 100px 0 120px;
 }
 
@@ -248,7 +294,7 @@
    DIVISOR ARTUARIUM
    ============================================================ */
 .divider-artuarium {
-  background-color: #FBF7F2;
+  background-color: #F5F1ED;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -325,7 +371,9 @@
      HERO
      ============================================================ -->
      <section id="hero">
-      <div class="container">
+      <div class="overlay"></div>
+      <div class="container mt-5">
+      
         <div class="row row-hero" data-aos="fade-up" data-aos-delay="100">
     
           <!-- TEXTO -->
@@ -345,9 +393,9 @@
           </div>
     
           <!-- IMAGEN -->
-          <div class="col-lg-4 ms-5 d-flex hero-image-col">
-            <img src="{% static 'assets/img/porto2.jpg' %}" class="img-fluid proposito-img">
-          </div>
+          <div class="col-lg-5 d-flex hero-image-col">
+            <img src="{% static 'assets/img/porto.webp' %}" class="hero-image">
+        </div>
     
         </div>
       </div>
@@ -363,7 +411,13 @@
   <div class="container">
     <div class="row justify-content-between align-items-stretch">
 
-      <div class="col-lg-8">
+      <div class="col-lg-4 d-flex">
+        <img src="{% static 'assets/img/porto3.jpg' %}" class="img-fluid proposito-img">
+      </div>
+      <div class="col-lg-1">
+      </div>
+
+      <div class="col-lg-7">
 
         <h2 class="proposito-title">
           {% translate "Viajar não é apenas deslocar-se:" %}<br>
@@ -391,9 +445,6 @@
 
       </div>
 
-      <div class="col-lg-4 d-flex">
-        <img src="{% static 'assets/img/porto3.jpg' %}" class="img-fluid proposito-img">
-      </div>
 
     </div>
   </div>
