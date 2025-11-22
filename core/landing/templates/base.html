@@ -26,7 +26,7 @@
 
   <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
   <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
-  <link href="{% static 'assets/vendor/aos/aos.css" rel="stylesheet' %}">
+  <link href="{% static 'assets/vendor/aos/aos.css' rel='stylesheet' %}">
   <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
   <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
 
@@ -62,7 +62,7 @@
 
 .footer-artuarium {
     position: relative;
-    background-color: #080C0A !important; /* verde MUY oscuro — paleta manual */
+    background-color:#212F28 !important; /* verde MUY oscuro — paleta manual */
     overflow: hidden;
 }
 
@@ -79,12 +79,6 @@
   align-items: center;
 }
 
-.header-right .social-links a {
-  color: #ffffff;
-  font-size: 18px;
-  margin-left: 12px;
-  transition: opacity .3s ease;
-}
 
 .header-right .social-links a:hover {
   opacity: 0.8;
@@ -144,6 +138,43 @@
   font-size: 1.4rem !important;
   
 }
+/* Contenedor general */
+.redes a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    height: 42px;
+
+    background-color: #344E41;    /* Verde profundo */
+    border-radius: 4px;
+
+    text-decoration: none;
+    transition: all 0.35s ease;
+}
+
+/* Íconos */
+.redes i {
+    font-size: 18px;
+    color: #F2F0E9;               /* Marfil */
+    transition: all 0.35s ease;
+}
+
+/* Hover Artuarium */
+.redes a:hover {
+    background-color: #6BA688;    /* Verde médio (paleta Artuarium) */
+}
+
+.redes a:hover i {
+    color: #FFFFFF;               /* Ícono blanco en hover */
+    transform: translateY(-1px); /* efecto suave */
+}
+.footer .row {
+  display: flex;
+  align-items: center;   /* CENTRA verticalmente todas las columnas */
+}
+
 </style>
   
 <body class="portfolio-details-page">
@@ -162,8 +193,8 @@
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="#hero" class="active">{% translate "HOME" %}<br></a></li>
-          <li><a href="#about">{% translate "ARTUARIUM" %}</a></li>
+          <li><a href="{% url 'index' %}" class="active">{% translate "HOME" %}<br></a></li>
+          <li><a href="{% url 'nosotros' %}">{% translate "ARTUARIUM" %}</a></li>
           {% comment %} <li><a href="#services">{% translate "AS NARRATIVAS" %}</a></li> {% endcomment %}
           <li><a href="#portfolio">{% translate "CAMINHOS & ROTEIROS" %}</a></li>
           <li><a href="#portfolio">{% translate "CONTATO" %}</a></li>
@@ -229,11 +260,27 @@
   {% block content%}
   {% endblock %}
    
-  <footer id="footer" class="footer dark-background ">
+  <footer id="footer" class="footer footer-artuarium ">
 
     <div class="footer-top">
-      <div class="container">
-        <div class="row gy-4">
+      <div class="container text-center">
+        <div class="row">
+          <div class="col-lg-4 col-md-6 footer-about">
+            <img src="{% static 'assets/img/Logotipo_Arturium_5.svg' %}" style="height:120px" >
+          </div>
+          <div class="col-lg-4 col-md-6 footer-about">
+            
+          </div>
+          <div class="col-lg-4 col-md-6 ">
+            <div class="redes d-flex">
+              <a class="me-3"href=""><i class="bi bi-twitter-x"></i></a>
+              <a class="me-3" href=""><i class="bi bi-facebook"></i></a>
+              <a class="me-3" href=""><i class="bi bi-instagram"></i></a>
+            </div>
+          </div>
+        </div>
+
+        {% comment %} <div class="row gy-4">
           <div class="col-lg-4 col-md-6 footer-about">
             <a href="index.html" class="logo d-flex align-items-center">
               <span class="sitename">GP</span>
@@ -285,24 +332,17 @@
             </form>
           </div>
 
-        </div>
+        </div> {% endcomment %}
       </div>
     </div>
-
-    <div class="copyright">
-      <div class="container text-center">
-        <p>© <span>Copyright</span> <strong class="px-1 sitename">GP</strong> <span>All Rights Reserved</span></p>
-        <div class="credits">
-          <!-- All the links in the footer should remain intact. -->
-          <!-- You can delete the links only if you've purchased the pro version. -->
-          <!-- Licensing information: https://bootstrapmade.com/license/ -->
-          <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> Distributed by <a href="https://themewagon.com">ThemeWagon</a>
-        </div>
-      </div>
-    </div>
-
   </footer>
+  <div class="copyright"style="background: #080C0A">
+    <div class="container text-center">        
+      <div class="credits" style="color:#c2c2c2; font-size:12px">
+        Designed by <a href="https://innobrar.com.br/">Innnobrar Solutions</a>
+      </div>
+    </div>
+  </div>
 
   <!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

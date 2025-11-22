@@ -30,7 +30,7 @@
   background-image: url("{% static 'assets/img/mapa.svg' %}");
   background-size: cover;
   background-position: center;
-  opacity: 0.22;
+  opacity: 0.12;
   z-index: -1;
 }
 
@@ -88,9 +88,9 @@
 
 .hero1-content h1 {
   font-size: 2.9rem;
-  font-weight: 600;
+  font-weight: 300;
   line-height: 1.22;
-  color: #080C0A !important;
+  color: #344E41 !important;
 }
 
 .hero1-content h4 {
@@ -98,6 +98,8 @@
   color: #344E41 !important;
   opacity: 0.85;
   margin-top: 1rem;
+  font-style: italic;
+  font-weight: 300;
 }
 
 .hero1-content .d-flex {
@@ -149,39 +151,198 @@
   }
 }
 
+
 /* ===========================================
    BOTONES
    =========================================== */
-.hero1-buttons {
-  padding: 10px 26px;
-  border-radius: 6px;
-  border: 1px solid #1B3A34;
-  background: transparent;
-  color: #1B3A34;
-  font-size: 0.85rem;
-  transition: 0.3s ease;
-}
 
-.hero1-buttons:hover {
-  background-color: #1B3A34;
-  color: #FBF7F2;
+  .btn1{
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    border: 1px solid #344E41;
+    color: #344E41;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-size: 0.8rem;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    background: transparent;
+    cursor: pointer;      
 }
-
-.hero1-btn {
-  padding: 10px 26px;
-  border-radius: 6px;
+.btn1:hover {
   background-color: #344E41;
-  color: #FBF7F2;
-  border: 1px solid #344E41;
+  color: #fff;
+}
+
+
+/* ============================================================
+   ABOUT
+   ============================================================ */
+
+/* --- SOBRE --- */
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.about-img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 2px; /* Bordas levemente suaves, mas clássicas */
+    box-shadow: 10px 10px 0px rgba(26, 60, 52, 0.1);
+}
+
+.drop-cap {
+    float: left;
+    font-family: var(--font-serif);
+    font-size: 4rem;
+    line-height: 0.8;
+    margin-right: 0.5rem;
+    color: var(--c-verde-medio);
+}
+#filosofia {
+  background-color: #F5F1ED;
+}
+
+#filosofia .container {
+  margin: 0 auto;
+  padding: 80px;
+  background: rgba(255,255,255,0.5);
+}
+
+#filosofia > .container .section-title {
+  text-align: left;
+  margin-bottom: 0;
+}
+
+#filosofia .section-title,
+#filosofia .section-title * {
+    background: transparent !important;
+}
+
+#filosofia > .container h5 {
+  font-family: "Switzer", sans-serif;
+  font-size: 1rem;
+  font-weight: 300;
+  color: #1B3A34;
+}
+#filosofia .section-title span {
+  letter-spacing: 0.28em;
   font-size: 0.85rem;
+  color: #52796F;
+}
+
+#filosofia .section-title h2 {
+  font-family: "Playfair Display SC", serif;
+  font-size: 2.6rem;
+  font-weight: 300;
+  color: #1B3A34;
+}
+
+
+/* HEADER de Caminhos & Roteiros */
+#filosofia .filosofia-header {
+    padding: 80px 0 40px;
+    background: transparent !important;
+    max-width: 1100px;
+    margin: 0 auto;      /* centra el bloque, pero el texto queda alineado */
+    text-align: left;
+}
+
+/* Primera línea (EXPERIÊNCIAS) */
+#filosofia .filosofia-header .text-caps {
+    display: block;
+    font-size: 0.85rem;
+    letter-spacing: 0.28em;
+    color: #52796F;
+    margin-bottom: 0.8rem;
+}
+
+/* Título principal */
+#filosofia .filosofia-title {
+    font-family: "Playfair Display SC", serif;
+    font-size: 2.8rem;
+    font-weight: 300;
+    margin: 0;
+    color: #1B3A34;
+    line-height: 1.22;
+}
+
+/* Segunda línea (Experiências) */
+#filosofia .filosofia-header .text-caps:last-child {
+    margin-top: 1rem;
+    color: #8AA19C;
+}
+
+
+
+
+
+
+/* GRID */
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+  justify-items: center;
+}
+
+/* CARD */
+.pillar-card {
+  width: 100%;
+  max-width: 360px;
+  padding: 3rem 2rem;
+  border: 1px solid rgba(26,60,52,0.22);
+  background: rgba(255,255,255,0.7);
+  text-align: center;
   transition: 0.3s ease;
 }
 
-.hero1-btn:hover {
-  background-color: #1B3A34;
-  border-color: #1B3A34;
+.pillar-card:hover {
+  transform: translateY(-4px);
 }
 
+.icon-wrapper {
+  font-size: 28px;
+  margin-bottom: 1.2rem;
+  color: #52796F;
+}
+
+.pillar-card h3 {
+  font-family: "Playfair Display SC", serif;
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: #344E41;
+  margin-bottom: 1rem;
+}
+
+.pillar-card p {
+  font-family: "Switzer", sans-serif;
+  font-size: 1rem;
+  color: #344E41;
+  line-height: 1.75;
+  font-weight: 300;
+}
+
+
+/* RESPONSIVE */
+@media (max-width: 991px) {
+    #filosofia .container {
+        max-width: 92%;
+    }
+    .pillars-grid {
+        grid-template-columns: 1fr;
+    }
+    .pillar-card {
+        max-width: 350px;
+        margin: 0 auto;
+    }
+}
 
 /* ============================================================
    SECCIÓN PROPÓSITO
@@ -189,21 +350,20 @@
 .section-proposito {
   padding: 110px 0 130px;
   background-color: #F5F1ED;
+  font-weight: 300;
+  line-height: 1.9; 
 }
 
 .proposito-title {
   font-family: var(--heading-font);
   font-size: clamp(2.5rem, 3.2vw, 2.7rem);
-  color: #1B3A34;
-  font-weight: 600;
+  color: #344E41;
+  font-weight: 300;
   line-height: 1.22;
-  margin-bottom: 1.4rem;
+  line-height: 1.5;
 }
 
-.proposito-title .nivel {
-  color: #0F2622;
-  font-weight: 700;
-}
+
 
 .proposito-lead {
   font-size: 1.15rem;
@@ -314,54 +474,168 @@
 }
 
 
-   /* ============================================================
-   CTA FINAL — ARTUARIUM (SIN MAPA) • Paleta Oficial
-   ============================================================ */
-   /* CTA Artuarium — verde profundo */
-   .cta-artuarium {
-     background-color: #0F2622; /* Verde profundo del manual */
-     padding: 130px 0 110px;
-     text-align: center;
-   }
-   
-   /* Títulos */
-   .cta-title {
-     font-family: 'Cormorant Garamond', serif;
-     font-size: 42px;
-     font-weight: 500;
-     color: #F5F1ED; /* Off white */
-     margin-bottom: 20px;
-   }
-   
-   .cta-sub {
-     font-family: 'Cormorant Garamond', serif;
-     font-size: 22px;
-     color: #E8E3DD;
-     margin-bottom: 50px;
-   }
-   
-   /* Botón */
-   .cta-btn {
-     display: inline-block;
-     padding: 12px 40px;
-     border: 1px solid #F5F1ED;
-     color: #F5F1ED;
-     text-decoration: none;
-     font-size: 18px;
-     transition: 0.3s;
-   }
-   
-   .cta-btn:hover {
-     background-color: rgba(255,255,255,0.15);
-   }
-   
-   /* BANDA SEPARADORA (COLOR HUESO / OFF WHITE) */
-   .cta-divider {
-     background-color: #F5F1ED; /* Off White del manual */
-     height: 120px;            /* Ajustable */
-   }
-   
+/* --- ROTEIROS --- */
+.tours-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
 
+.tour-card {
+    background-color: #fff;
+    border: 1px solid rgba(26, 60, 52, 0.05);
+    overflow: hidden;
+    group: hover;
+    cursor: pointer;
+}
+
+.tour-img-container {
+    overflow: hidden;
+    height: 250px;
+}
+
+.tour-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.tour-card:hover .tour-img {
+    transform: scale(1.05);
+}
+
+.tour-content {
+    padding: 2rem;
+}
+
+.tour-content h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+}
+
+.tour-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--c-verde-medio);
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    padding-bottom: 1rem;
+}
+   /* ======== CONTATO – Versión EXACTA como la captura ======== */
+
+   .contact-section {
+       padding: 8rem 0;
+       text-align: center;
+       background: #F5F1ED;
+   }
+   
+   /* Caja central verde */
+   .contact-box {
+       max-width: 980px;
+       margin: 0 auto;
+       background-color: #344E41;
+       padding: 5rem 4rem;
+       color:#F5F1ED;
+   }
+   
+   /* Fale Conosco */
+   .text-caps {
+       display: block;
+       font-size: 0.9rem;
+       letter-spacing: 0.22em;
+       color: #8AB9A3;
+       margin-bottom: 1.5rem;
+       font-family: "Switzer", sans-serif;
+   }
+   
+   /* Título */
+   .contact-title {
+       font-family: "Playfair Display SC", serif;
+       font-size: 2.3rem;
+       font-weight: 400;
+       margin-bottom: 1.3rem;
+       color: #F2F0E9;
+       font-weight: 400;
+   }
+   
+   /* Subtítulo */
+   .contact-sub {
+       max-width: 550px;
+       margin: 0 auto 3rem auto;
+       font-family: "Switzer", sans-serif;
+       font-size: 1.1rem;
+       line-height: 1.9;
+       opacity: 0.85;
+       font-weight: 300;
+   }
+   
+   /* FORM */
+   .form-group {
+       margin-bottom: 2.5rem;
+       text-align: left;
+   }
+   
+   .form-input {
+       width: 100%;
+       padding: 0.8rem 0;
+       background: transparent;
+       border: none;
+       border-bottom: 1px solid rgba(255,255,255,0.35);
+       font-size: 1.1rem;
+       font-family: "Switzer", sans-serif;
+       color: #ffffff;
+       font-weight: 300;
+   }
+   
+   .form-input::placeholder {
+       color: rgba(255,255,255,0.7);
+   }
+   
+   .form-input:focus {
+       border-bottom-color: #6BA688;
+       outline: none;
+   }
+   
+   /* BOTÓN */
+   .btn-submit {
+       background-color: #F2F0E9;
+       color: #14332E;
+       padding: 1rem 3rem;
+       border: none;
+       letter-spacing: 0.13em;
+       cursor: pointer;
+       transition: 0.3s ease;
+       font-family: "Switzer", sans-serif;
+   }
+   
+   .btn-submit:hover {
+       background-color: #6BA688;
+       color: #ffffff;
+   }
+
+/* MOBILE */
+@media (max-width: 768px) {
+    .contact-box {
+        padding: 3rem 2rem;
+    }
+}
+
+.tour-img-container {
+  width: 100%;
+  height: 250px; /* podés ajustar a tu gusto */
+  overflow: hidden;
+  border-radius: 4px; /* opcional, queda lindo */
+}
+
+.tour-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;   /* <-- hace que se vea perfecto */
+  object-position: center; /* centra la parte importante */
+  display: block;
+}
 
 </style>
 
@@ -372,80 +646,54 @@
      ============================================================ -->
      <section id="hero">
       <div class="overlay"></div>
-      <div class="container mt-5">
-      
-        <div class="row row-hero" data-aos="fade-up" data-aos-delay="100">
-    
+      <div class="container mt-5">      
+        <div class="row row-hero" data-aos="fade-up" data-aos-delay="100">    
           <!-- TEXTO -->
           <div class="col-xl-7 col-lg-7 hero1-content">
             <h1 id="title-hero1" class="smooth-fade">
               {% translate "Seja bem-vindo a uma história que começa antes de você chegar." %}
-            </h1>
-    
+            </h1>    
             <h4 id="subtitle-hero1" class="smooth-fade">
               {% translate "Um encontro entre história, beleza e emoção." %}
-            </h4>
-    
+            </h4>    
             <div class="d-flex gap-3 mt-5">
               <a class="hero1-buttons" href="#about">{% translate "Agendar" %}</a>
               <a class="hero1-btn" href="#about">{% translate "Saiba Mais" %}</a>
+              <a href="#caminhos" class="btn1">Iniciar Jornada</a>
             </div>
-          </div>
-    
+          </div>    
           <!-- IMAGEN -->
           <div class="col-lg-5 d-flex hero-image-col">
             <img src="{% static 'assets/img/porto.webp' %}" class="hero-image">
-        </div>
-    
+        </div>    
         </div>
       </div>
-    </section>
+    </section>  
     
-    
-    
-
 <!-- ============================================================
      PROPÓSITO
      ============================================================ -->
 <section id="about" class="section-proposito">
   <div class="container">
     <div class="row justify-content-between align-items-stretch">
-
       <div class="col-lg-4 d-flex">
         <img src="{% static 'assets/img/porto3.jpg' %}" class="img-fluid proposito-img">
       </div>
       <div class="col-lg-1">
       </div>
-
       <div class="col-lg-7">
-
-        <h2 class="proposito-title">
-          {% translate "Viajar não é apenas deslocar-se:" %}<br>
-          <span class="nivel">{% translate "é escutar." %}</span>
+        <h2 class="proposito-title mb-3">
+          <span class="text-caps">NÓS</span>
+          {% translate "Viajar não é apenas deslocar-se: é escutar." %}<br>  
         </h2>
-
-        <p class="proposito-lead fst-italic">
-          {% translate "Na Artuarium, cada caminho carrega uma voz — um sopro do passado que encontra o presente e se transforma em" %}
-          <span class="enfase">{% translate "gesto, memória e encantamento." %}</span>
-        </p>
-
-        <ul class="proposito-list list-unstyled">
-          <li><span class="ornamento">✦</span> {% translate "Guiamos jornadas que caminham no ritmo da cidade." %}</li>
-          <li><span class="ornamento">✦</span> {% translate "Que não mostram — revelam camadas invisíveis." %}</li>
-          <li><span class="ornamento">✦</span> {% translate "Que não explicam — conectam sentidos e histórias." %}</li>
-        </ul>
-
-        <p>
-          {% translate "Aqui, o tempo desacelera. As pedras contam segredos." %}
+        <div class="text-reading">
+          <p>Artuarium é uma casa de viagens culturais, um espaço onde a história, a beleza e a emoção caminham juntas.</p>
           <br>
-          <span class="final-frase mt-3">
-            {% translate "E você deixa de olhar — para finalmente ver." %}
-          </span>
-        </p>
-
+          <p>Nascemos da crença de que o passado não é algo distante, mas uma força viva que molda quem somos. Rejeitamos o turismo apressado. Aqui, cada rota é uma narrativa; cada tour, um convite à reflexão.</p>
+          <br>
+          <p>Não oferecemos informações: oferecemos sentido. Não prometemos conforto superficial: oferecemos beleza, profundidade e presença.</p>
       </div>
-
-
+      </div>
     </div>
   </div>
 </section>
@@ -458,72 +706,115 @@
   <img src="{% static 'assets/img/icono_arturium.png' %}" class="divider-icon">
   <span class="divider-line"></span>
 </div>
-
-<!-- ============================================================
-     NARRATIVAS
-     ============================================================ -->
-    <section id="services" class="section-narrativas">
-      <div class="container">
-
-        <div class="mb-5 text-left">
-          <h2 class="narrativas-title">
-            {% translate "Narrativas que despertam ao caminhar." %}
-          </h2>
-          <p class="narrativas-subtitle">
-            {% translate "Cada experiência nasce de uma pergunta, de um olhar e de um encontro." %}
-            <br>
-            {% translate "Aqui, você escolhe qual história deseja escutar primeiro." %}
-          </p>
+<section id="filosofia" class="fade-in">
+  <div class="container">
+    <h2 class="proposito-title mb-3">
+      <span class="text-caps">NOSSOS PILARES</span>
+      {% translate "A Essência da Jornada" %}<br>  
+    </h2>
+    <div class="pillars-grid">
+        <div class="pillar-card">
+            <div class="icon-wrapper"><i class="bi bi-eye"></i></div>
+            <h3>Conhecimento que Encanta</h3>
+            <p>A erudição é o coração da marca, mas nunca fria. Roteiros construídos com rigor histórico, entregues com a beleza da poesia.</p>
         </div>
+        <div class="pillar-card">
+            <div class="icon-wrapper"><i class="bi bi-journal-bookmark"></i></div>
+            <h3>Beleza que Educa</h3>
+            <p>A estética é forma de aprendizado. A beleza é a ponte entre a mente e a emoção, transformando o olhar do viajante.</p>
+        </div>
+        <div class="pillar-card">
+            <div class="icon-wrapper"><i class="bi bi-signpost-split"></i></div>
+            <h3>Gentileza que Conecta</h3>
+            <p>O verdadeiro luxo está no trato humano. Guiamos com empatia, respeito e autenticidade em cada encontro.</p>
+        </div>
+    </div>
+  </div>
+</section>
 
-        <div class="row gy-4">
-          <div class="col-lg-4 col-md-6">
-            <div class="narrativa-card">
-              <div class="icon-box"><i class="bi bi-eye"></i></div>
-              <h3>Olhar Devagar</h3>
-              <p>Estética da contemplação. Pequenos instantes que mudam o ritmo do mundo.</p>
-            </div>
+<section id="filosofia" class="fade-in">
+  <div class="container filosofia-header">    
+    <span class="text-caps">EXPERIÊNCIAS</span>
+    <h2 class="filosofia-title">
+      CAMINHOS & ROTEIROS
+    </h2>
+    <span class="text-caps">Narrativas guiadas pelo invisível.</span>
+  </div>
+  <div class="container">
+    <div class="pillars-grid">
+        <div class="pillar-card">
+          <div class="tour-img-container nb-2">
+            <img src="{% static 'assets/img/1.jpg' %}">
           </div>
-
-          <div class="col-lg-4 col-md-6">
-            <div class="narrativa-card">
-              <div class="icon-box"><i class="bi bi-journal-bookmark"></i></div>
-              <h3>Cuidar das Histórias</h3>
-              <p>Memórias não são fatos: são heranças vivas que precisam de cuidado.</p>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6">
-            <div class="narrativa-card">
-              <div class="icon-box"><i class="bi bi-signpost-split"></i></div>
-              <h3>Caminhar com Alma</h3>
-              <p>O caminho importa tanto quanto o destino. Cada passo também narra.</p>
-            </div>
+          {% comment %} <div class="tour-meta">
+            <span>História</span>
+            <span>3h Duração</span>
+          </div> {% endcomment %}
+          <div class="mt-3">
+            <h3>O Porto que se Revela do Alto</h3>
+            <p class="text-reading">Uma travessia pelas encostas históricas do Douro, onde a cidade antiga se desdobra em camadas de tempo.</p>
           </div>
         </div>
+        <div class="pillar-card">
+          <div class="tour-img-container">
+            <img src="{% static 'assets/img/2.jpg' %}">
+          </div>
+          {% comment %} <div class="tour-meta">
+            <span>Literatura</span>
+            <span>4h Duração</span>
+          </div> {% endcomment %}
+          <div class="mt-3">
+            <h3>Ecos do Entardecer Atlântico</h3>
+            <p class="text-reading">Um passeio que une contemplação, paisagem e silêncio — para sentir a cidade onde o rio encontra o mar.</p>
+          </div>
+        </div>
+        <div class="pillar-card">
+          <div class="tour-img-container">
+            <img src="{% static 'assets/img/4.jpg' %}">
+          </div>
+          {% comment %} <div class="tour-meta">
+            <span>Arte & Sacro</span>
+            <span>3h Duração</span>
+          </div> {% endcomment %}
+          <div class="mt-3">
+            <h3>Cores de Porto</h3>
+            <p class="text-reading">Entre trilhos, fachadas antigas e o charme do bonde histórico, este caminho revela a alma vibrante da cidade.</p>
+          </div>
+        </div>
+    </div>
+  </div>
+</section>
+<div class="divider-artuarium">
+  <span class="divider-line"></span>
+  <img src="{% static 'assets/img/icono_arturium.png' %}" class="divider-icon">
+  <span class="divider-line"></span>
+</div>
 
-      </div>
-    </section>
+   
 
-    <section class="cta-artuarium">
-      <div class="cta-inner">
-        <h2 class="cta-title">
-          Permita-se uma jornada com olhos de quem vê além das fachadas.
-        </h2>
-
-        <p class="cta-sub">
-          Descubra um novo jeito de viajar.
-        </p>
-
-        <a href="#contato" class="cta-btn">Agendar</a>
-      </div>
-    </section>
-
-    <!-- BANDA SEPARADORA DEL MANUAL -->
-    <section class="cta-divider"></section>
-
-    
-
+  <div class="divider"></div>
+  <section id="contato" class="contact-section fade-in">
+    <div class="contact-box">  
+      <span class="text-caps">Fale Conosco</span>  
+      <h3 class="contact-title">Comece a sua história</h3>  
+      <p class="contact-sub">
+          Para agendar uma experiência ou conversar sobre projetos culturais,
+          escreva-nos. Respondemos com a calma que o assunto merece.
+      </p>  
+      <form>
+          <div class="form-group">
+              <input type="text" class="form-input" placeholder="Seu Nome">
+          </div>  
+          <div class="form-group">
+              <input type="email" class="form-input" placeholder="Seu Email">
+          </div>  
+          <div class="form-group">
+              <textarea class="form-input" rows="4" placeholder="Sua Mensagem"></textarea>
+          </div>  
+          <button type="submit" class="btn-submit">Enviar Mensagem</button>
+      </form>  
+    </div>  
+  </section>      
 </main>
 {% endblock %}
 

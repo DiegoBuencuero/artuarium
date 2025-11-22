@@ -3,8 +3,8 @@ from django.shortcuts import render
 def index(request):
     return render (request, "index.html")
 
-def about(request):
-    return render (request, "about.html")
+def nosotros(request):
+    return render (request, "nosotros.html")
 
 def services(request):
     return render (request, "services.html")
@@ -18,6 +18,9 @@ def contact(request):
 
 def thanks(request):
     pass
+
+def index2(request):
+    return render (request, "index_studio.html")
 
 
 

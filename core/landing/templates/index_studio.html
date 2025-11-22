@@ -1,0 +1,701 @@
+
+{% load static %}<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artuarium | Reencantar o mundo através da história</title>
+    
+    <!-- Fontes Google: Playfair Display (Serifa), Montserrat (Sans), Cormorant Garamond (Leitura) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- VARIÁVEIS E RESET --- */
+        :root {
+            --c-marfim: #F2F0E9;
+            --c-verde-profundo: #1A3C34;
+            --c-verde-medio: #6BA688;
+            --c-verde-claro: #D4E5A4;
+            --c-texto: #1A3C34;
+            --font-serif: 'Playfair Display', serif;
+            --font-reading: 'Cormorant Garamond', serif;
+            --font-sans: 'Montserrat', sans-serif;
+        }
+        .header-map {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        
+            width: 100vw;
+            height: 160px;
+        
+            background-image: url("{% static 'assets/img/mapa.svg' %}");
+            background-repeat: no-repeat;
+            background-position: center bottom;
+            background-size: cover; /* ahora llena toda la faja */
+        
+            opacity: 0.12; /* sutil pero presente */
+            pointer-events: none;
+        
+            z-index: 50; /* debajo del header, arriba del fondo */
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--c-marfim);
+            color: var(--c-texto);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        
+
+        /* --- TIPOGRAFIA --- */
+        h1, h2, h3, h4 {
+            font-family: var(--font-serif);
+            font-weight: 400;
+            letter-spacing: -0.02em;
+        }
+
+        .text-reading {
+            font-family: var(--font-reading);
+            font-size: 1.25rem;
+        }
+
+        .text-caps {
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .btn-submit {
+            background-color: var(--c-marfim);
+            color: var(--c-verde-profundo);
+            border: none;
+            padding: 1rem 3rem;
+            font-family: var(--font-sans);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            margin-top: 2rem;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--c-verde-medio);
+            color: #fff;
+        }
+        .divider {
+            width: 1px;
+            height: 80px;
+            background-color: var(--c-verde-profundo);
+            margin: 0 auto;
+            opacity: 0.3;
+        }
+
+        /* --- HEADER / NAV --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 1.5rem 2rem;
+            transition: all 0.5s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header.scrolled {
+            background-color: rgba(242, 240, 233, 0.95);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            padding: 1rem 2rem;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--c-verde-profundo);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            /* SVG inline no HTML */
+        }
+
+        .logo-text {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--c-verde-profundo);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--c-verde-medio);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hamburger Menu (Mobile) */
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding: 0 1rem;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1555881400-74d7acaacd81?q=80&w=1920&auto=format&fit=crop'); /* Porto / Old City vibe */
+            background-size: cover;
+            background-position: center;
+            opacity: 0.25; /* Baixa opacidade para fundir com marfim */
+            z-index: -2;
+            filter: sepia(20%) contrast(110%);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-family: var(--font-reading);
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--c-verde-profundo);
+            margin-bottom: 3rem;
+        }
+
+        /* --- SECTION GERAL --- */
+        section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .section-title span {
+            color: var(--c-verde-medio);
+        }
+
+        /* --- SOBRE --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 2px; /* Bordas levemente suaves, mas clássicas */
+            box-shadow: 10px 10px 0px rgba(26, 60, 52, 0.1);
+        }
+
+        .drop-cap {
+            float: left;
+            font-family: var(--font-serif);
+            font-size: 4rem;
+            line-height: 0.8;
+            margin-right: 0.5rem;
+            color: var(--c-verde-medio);
+        }
+
+        /* --- PILARES (COMO/POR QUE) --- */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            text-align: center;
+        }
+
+        .pillar-card {
+            padding: 2rem;
+            border: 1px solid rgba(26, 60, 52, 0.1);
+            background-color: rgba(255, 255, 255, 0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--c-verde-medio);
+        }
+
+        .icon-wrapper {
+            margin-bottom: 1.5rem;
+            color: var(--c-verde-medio);
+        }
+
+        /* --- ROTEIROS --- */
+        .tours-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .tour-card {
+            background-color: #fff;
+            border: 1px solid rgba(26, 60, 52, 0.05);
+            overflow: hidden;
+            group: hover;
+            cursor: pointer;
+        }
+
+        .tour-img-container {
+            overflow: hidden;
+            height: 250px;
+        }
+
+        .tour-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .tour-card:hover .tour-img {
+            transform: scale(1.05);
+        }
+
+        .tour-content {
+            padding: 2rem;
+        }
+
+        .tour-content h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .tour-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--c-verde-medio);
+            margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding-bottom: 1rem;
+        }
+
+        /* --- JOURNAL --- */
+        .journal-preview {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            border-left: 1px solid var(--c-verde-profundo);
+            padding-left: 2rem;
+        }
+
+        .journal-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+        }
+        
+        .journal-item h3:hover {
+            color: var(--c-verde-medio);
+        }
+
+        .journal-date {
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            opacity: 0.6;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* --- CONTATO --- */
+        .contact-section {
+            background-color: var(--c-verde-profundo);
+            color: var(--c-marfim);
+            text-align: center;
+            padding: 5rem 1rem;
+        }
+
+        .contact-section h2 {
+            color: var(--c-marfim);
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(242, 240, 233, 0.3);
+            color: var(--c-marfim);
+            font-family: var(--font-sans);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-bottom-color: var(--c-verde-medio);
+        }
+
+        .btn-submit {
+            background-color: var(--c-marfim);
+            color: var(--c-verde-profundo);
+            border: none;
+            padding: 1rem 3rem;
+            font-family: var(--font-sans);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            margin-top: 2rem;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--c-verde-medio);
+            color: #fff;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 3rem;
+            font-size: 0.8rem;
+            border-top: 1px solid rgba(26, 60, 52, 0.1);
+        }
+
+        /* --- ANIMAÇÕES --- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- MEDIA QUERIES --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .about-grid { grid-template-columns: 1fr; }
+            nav ul { display: none; } /* Esconder menu desktop */
+            .menu-toggle { display: block; }
+            .about-img { height: 300px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navegação -->
+    <header id="navbar">
+        <a href={% url 'index' %} class="logo d-flex align-items-center me-auto me-lg-0">
+            <img src="{% static 'assets/img/Logotipo_Arturium_7.svg' %}"
+            alt="Artuarium"
+            style="height: 40px;">
+          </a>
+
+        <nav>
+            <ul>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#filosofia">Filosofia</a></li>
+                <li><a href="#caminhos">Caminhos</a></li>
+                <li><a href="#journal">Journal</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+            <div class="menu-toggle">☰</div>
+        </nav>
+    </header>
+
+
+    <!-- Hero Section -->
+    <section class="hero fade-in">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1>Seja bem-vindo a uma história<br>que começa antes de você chegar.</h1>
+            <p>Reencantar o mundo através da história.</p>
+            <a href="#caminhos" class="btn">Iniciar Jornada</a>
+        </div>
+    </section>
+    <div class="header-map"></div>
+    <div class="divider"></div>
+
+    <!-- Sobre Artuarium -->
+    <section id="sobre" class="fade-in">
+        <div class="about-grid">
+            <div class="about-text">
+                <div class="section-title" style="text-align: left; margin-bottom: 2rem;">
+                    <span class="text-caps">Sobre Nós</span>
+                    <h2>Onde outros veem ruínas, nós vemos ecos.</h2>
+                </div>
+                <div class="text-reading">
+                    <p><span class="drop-cap">A</span> Artuarium é uma casa de viagens culturais, um espaço onde a história, a beleza e a emoção caminham juntas.</p>
+                    <br>
+                    <p>Nascemos da crença de que o passado não é algo distante, mas uma força viva que molda quem somos. Rejeitamos o turismo apressado. Aqui, cada rota é uma narrativa; cada tour, um convite à reflexão.</p>
+                    <br>
+                    <p>Não oferecemos informações: oferecemos sentido. Não prometemos conforto superficial: oferecemos beleza, profundidade e presença.</p>
+                </div>
+            </div>
+            <div class="about-image-wrapper">
+                <!-- Imagem com atmosfera clássica -->
+                <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=1000&auto=format&fit=crop" alt="Paisagem enevoada" class="about-img">
+            </div>
+        </div>
+    </section>
+
+    <!-- Filosofia (O Que / Como / Por Que) -->
+    <section id="filosofia" class="fade-in" style="background-color: rgba(255,255,255,0.5);">
+        <div class="section-title">
+            <span class="text-caps">Nossos Pilares</span>
+            <h2>A Essência da Jornada</h2>
+        </div>
+        <div class="pillars-grid">
+            <div class="pillar-card">
+                <div class="icon-wrapper">✦</div>
+                <h3>Conhecimento que Encanta</h3>
+                <p class="text-reading">A erudição é o coração da marca, mas nunca fria. Roteiros construídos com rigor histórico, entregues com a beleza da poesia.</p>
+            </div>
+            <div class="pillar-card">
+                <div class="icon-wrapper">✦</div>
+                <h3>Beleza que Educa</h3>
+                <p class="text-reading">A estética é forma de aprendizado. A beleza é a ponte entre a mente e a emoção, transformando o olhar do viajante.</p>
+            </div>
+            <div class="pillar-card">
+                <div class="icon-wrapper">✦</div>
+                <h3>Gentileza que Conecta</h3>
+                <p class="text-reading">O verdadeiro luxo está no trato humano. Guiamos com empatia, respeito e autenticidade em cada encontro.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Caminhos & Roteiros -->
+    <section id="caminhos" class="fade-in">
+        <div class="section-title">
+            <span class="text-caps">Experiências</span>
+            <h2>Caminhos & Roteiros</h2>
+            <p class="text-reading" style="margin-top: 1rem;">Narrativas guiadas pelo invisível.</p>
+        </div>
+
+        <div class="tours-grid">
+            <!-- Card 1 -->
+            <div class="tour-card">
+                <div class="tour-img-container">
+                    <img src="https://images.unsplash.com/photo-1559127999-88e9e0928755?q=80&w=800&auto=format&fit=crop" alt="Porto Invisível" class="tour-img">
+                </div>
+                <div class="tour-content">
+                    <div class="tour-meta">
+                        <span>História</span>
+                        <span>3h Duração</span>
+                    </div>
+                    <h3>O Porto Invisível</h3>
+                    <p class="text-reading">Uma travessia pelas camadas ocultas da cidade, onde as pedras sussurram segredos que os mapas esqueceram.</p>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="tour-card">
+                <div class="tour-img-container">
+                    <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=800&auto=format&fit=crop" alt="Livros" class="tour-img">
+                </div>
+                <div class="tour-content">
+                    <div class="tour-meta">
+                        <span>Literatura</span>
+                        <span>4h Duração</span>
+                    </div>
+                    <h3>Ecos Literários</h3>
+                    <p class="text-reading">A cidade através dos olhos dos poetas que nela viveram e amaram. Uma jornada com a mochila cheia de livros.</p>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="tour-card">
+                <div class="tour-img-container">
+                    <img src="https://images.unsplash.com/photo-1548625149-fc4a29cf7092?q=80&w=800&auto=format&fit=crop" alt="Arte Sacra" class="tour-img">
+                </div>
+                <div class="tour-content">
+                    <div class="tour-meta">
+                        <span>Arte & Sacro</span>
+                        <span>3h Duração</span>
+                    </div>
+                    <h3>O Silêncio dos Mosteiros</h3>
+                    <p class="text-reading">Entre a penumbra e o dourado. Descubra a arte sacra não como peça de museu, mas como expressão do divino.</p>
+                </div>
+            </div>
+        </div>
+
+    <div class="divider"></div>
+
+    </section>
+
+    <!-- Journal / Conteúdo -->
+    <section id="journal" class="fade-in">
+        <div class="about-grid">
+            <div>
+                <span class="text-caps">Conteúdo Autoral</span>
+                <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem;">Diário de Bordo</h2>
+                <p class="text-reading">
+                    Nossa missão de reencantar o mundo não termina na viagem. Através de ensaios, newsletters e curadoria, mantemos a chama da curiosidade acesa.
+                </p>
+                <br>
+                <a href="#" class="btn">Ler Todos os Artigos</a>
+            </div>
+            <div class="journal-preview">
+                <div class="journal-item">
+                    <span class="journal-date">Outubro 12, 2023</span>
+                    <h3>A importância da beleza na formação do caráter</h3>
+                    <p class="text-reading" style="font-size: 1rem;">Ensaio sobre estética e ética.</p>
+                </div>
+                <div class="journal-item">
+                    <span class="journal-date">Setembro 28, 2023</span>
+                    <h3>5 Livros para ler antes de visitar o Porto</h3>
+                    <p class="text-reading" style="font-size: 1rem;">Uma curadoria para viajantes leitores.</p>
+                </div>
+                <div class="journal-item">
+                    <span class="journal-date">Setembro 15, 2023</span>
+                    <h3>O que as pedras antigas têm a nos dizer?</h3>
+                    <p class="text-reading" style="font-size: 1rem;">Reflexão sobre tempo e memória.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contato -->
+    <section id="contato" class="contact-section fade-in">
+        <div style="max-width: 600px; margin: 0 auto;">
+            <span class="text-caps" style="color: var(--c-verde-claro);">Fale Conosco</span>
+            <h2>Comece a sua história</h2>
+            <p class="text-reading" style="color: rgba(242, 240, 233, 0.8);">
+                Para agendar uma experiência ou conversar sobre projetos culturais, escreva-nos. Respondemos com a calma que o assunto merece.
+            </p>
+            
+            <form style="margin-top: 3rem;">
+                <div class="form-group">
+                    <input type="text" class="form-input" placeholder="Seu Nome">
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-input" placeholder="Seu Email">
+                </div>
+                <div class="form-group">
+                    <textarea class="form-input" rows="4" placeholder="Sua Mensagem"></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Enviar Mensagem</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p style="font-family: var(--font-serif); font-style: italic; margin-bottom: 1rem;">"Gentileza gera gentileza"</p>
+        <p class="text-caps" style="opacity: 0.5;">&copy; 2023 Artuarium. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // --- Script para Animações de Scroll e Navbar ---
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const navbar = document.getElementById('navbar');
+            const fadeElements = document.querySelectorAll('.fade-in');
+
+            // Função para navbar sticky mudar de cor
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            // Observer para animação de elementos ao aparecer na tela
+            const observerOptions = {
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target); // Anima apenas uma vez
+                    }
+                });
+            }, observerOptions);
+
+            fadeElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+    </script>
+
+</body>
+</html>

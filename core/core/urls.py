@@ -16,16 +16,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from landing.views import index, about, services, starter, contact, thanks
+from landing.views import index, nosotros, services, starter, contact, thanks, index2
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", index, name='index'),
-    path('about', about, name='about'),
+    path('about', nosotros, name='nosotros'),
     path('services', services, name='services'),
     path('starter', starter, name='starter'),
     path('contact', contact, name='contact'),
     path('thanks', thanks, name='thanks'),
     path('i18n/', include('django.conf.urls.i18n')),
+    path("1", index2, name='index2'),
+
  
 ]
